@@ -1,0 +1,70 @@
+[
+    {
+      "name": "Walnut Cake",
+      "id": {
+        "$oid": "5160dcdf96cc620d188cba48"
+      },
+      "source": "epicurious",
+      "recipeYield": "Makes 18 to 24 servings",
+      "datePublished": "2012-03-01",
+      "ingredients": "1 cup (2 sticks) unsalted butter, room temperature, plus more for pan\n6 tablespoons raw sugar, divided\n7 cups walnut halves\n3/4 cup all-purpose flour\n1 1/2 cups almond flour or almond meal\n3/4 cup granulated sugar\n6 large eggs\n3/4 cup heavy cream\n1/2 cup plain whole-milk yogurt\n1 teaspoon kosher salt\n1 vanilla bean, split lengthwise\nWhipped cream"
+    },
+    {
+      "name": "Watercress-Walnut Dip Recipe",
+      "id": {
+        "$oid": "51607b9996cc6208c8a927f1"
+      },
+      "source": "chow",
+      "recipeYield": "8 to 10 servings",
+      "prepTime": "PT0H0M",
+      "description": "This sophisticated starter more closely resembles a pesto, and its peppery, nutty flavor goes great with our Black Pepper Lavash.Game plan: If your bunches of...",
+      "ingredients": "1 bunch watercress, washed, dried, and tough stems removed\n2 1/4 teaspoons Dijon mustard\n2 teaspoons freshly squeezed lemon juice\n1/2 tablespoon coarsely chopped shallot\n2 medium garlic cloves, peeled\n1 cup pecans\n3 tablespoons olive oil"
+    },
+    {
+      "name": "Chocolate Walnut Torte Recipe",
+      "id": {
+        "$oid": "5160a9a696cc620a5db6e0f1"
+      },
+      "source": "chow",
+      "recipeYield": "1 torte",
+      "prepTime": "PT0H0M",
+      "description": "Here's yet another delicious gluten-free kosher for Passover recipe; it is based on a recipe I found on epicurean.com. My husband was very enthusiastic about...",
+      "ingredients": "5 eggs, separated\nÂ½ cup agave nectar\nÂ½ teaspoon celtic sea salt\n1 cup dark chocolate 73%\n2 cups walnuts"
+    },
+    {
+      "name": "Endive with Walnut Vinaigrette",
+      "id": {
+        "$oid": "5160d3ef96cc620d188cb3b0"
+      },
+      "source": "epicurious",
+      "recipeYield": "Makes 8 servings",
+      "datePublished": "2009-02-01",
+      "ingredients": "6 Belgian endives (about 1 1/2 pounds)\n2 tablespoons red-wine vinegar\n2 tablespoons chopped chives\n1 teaspoon Dijon mustard\n3 tablespoons vegetable oil\n2 tablespoons walnut oil"
+    },
+    {
+      "name": "Healthy Chocolate-Walnut Fudge",
+      "id": {
+        "$oid": "5160d68696cc620d261533c4"
+      },
+      "source": "tastykitchen",
+      "recipeYield": "15",
+      "prepTime": "PT10M",
+      "cookTime": "PT5M",
+      "datePublished": "2013-03-28",
+      "description": "This candy is much healthier than traditional sugar-laden fudge; it subtly sweet, full of heart-healthy fats and antioxidants, and still super satisfying when a chocolate craving hits.",
+      "ingredients": "7 ounces, weight 7 ounces, weight\n1 can 1 can\nÂ½ cups Â½ cups\n6 Tablespoons 6 Tablespoons\n2 teaspoons 2 teaspoons\nÂ¼ teaspoons Â¼ teaspoons\nÂ¼ cups Â¼ cups"
+    },
+    {
+      "name": "Pretzel Walnut Crusted Halibut",
+      "id": {
+        "$oid": "5160e66696cc620d261539c3"
+      },
+      "source": "tastykitchen",
+      "recipeYield": "2",
+      "prepTime": "PT5M",
+      "cookTime": "PT10M",
+      "datePublished": "2013-03-01",
+      "description": "A delicious fish covered in pretzel and walnut pieces.",
+      "ingredients": "8 ounces, weight 8 ounces, weight\n10 whole 10 whole\nâ…“ cups â…“ cups\n1-Â½ teaspoon 1-Â½ teaspoon\n2 Tablespoons 2 Tablespoons"
+    }
+  ]

@@ -1,0 +1,8 @@
+- api:                  Registering a customer
+  httpverb:             get
+  uri:                  /:customer/:phone/registration
+  responseStatus:       201
+  responseCookies:      cookie1=cookievalue1,cookie2=cookievalue2
+  responseHeaders:      header2=headervalue2,header3=headervalue3
+  responseTemplateFile: customer.hbs
+  responseContentType:  application/json
