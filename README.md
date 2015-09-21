@@ -78,8 +78,8 @@ You access the fields with <yml_property_name>.<variable_name>
 
 A few examples, 
 * Input request: /customer/sai, Definition: /customer/:name. Then the variable uri.name contains the value 'sai'.
-* If you want to access requestHeaders, you may access it using the key ** requestHeaders.<header_name> **
-* If you want to access the Request Body, you may access it using the key ** requestBody ** [Note that 
+* If you want to access requestHeaders, you may access it using the key **requestHeaders.<header_name>**
+* If you want to access the Request Body, you may access it using the key **requestBody** [Note that 
 if the request body is a JSON, then you could access the JSON properties as usual to any level of nesting. For example: requestBody.customer.name
 
 #### Sample response template file:
