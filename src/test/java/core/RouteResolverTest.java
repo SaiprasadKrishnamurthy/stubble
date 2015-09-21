@@ -6,6 +6,7 @@ import model.ApiDef;
 import org.junit.Test;
 import spark.Request;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class RouteResolverTest {
     @Test
     public void shouldFindRouteConfigWithPathVariablesOnly() throws Exception {
 
-        final List<ApiDef> availableDefinitions = new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml")).apiDefinitions();
+        final List<ApiDef> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
 
 
         // Test request
@@ -84,7 +85,7 @@ public class RouteResolverTest {
     @Test
     public void shouldFindRouteConfigWithPathVariablesAndQueryString() throws Exception {
 
-        final List<ApiDef> availableDefinitions = new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml")).apiDefinitions();
+        final List<ApiDef> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
 
         // Test request
         Request rq = new Request() {
@@ -146,7 +147,7 @@ public class RouteResolverTest {
     @Test
     public void shouldFindRouteConfigWithPathVariablesPUT() throws Exception {
 
-        final List<ApiDef> availableDefinitions = new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml")).apiDefinitions();
+        final List<ApiDef> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
 
         // Test request
         Request rq = new Request() {
@@ -200,17 +201,17 @@ public class RouteResolverTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void ambiguousUriMapping()  {
-        new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-1.yml")).apiDefinitions();
+    public void ambiguousUriMapping() {
+        new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-1.yml"))).apiDefinitions();
     }
 
     @Test
-    public void nonAmbiguousUriMappingWithMultiVerbs()  {
-        new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-2.yml")).apiDefinitions();
+    public void nonAmbiguousUriMappingWithMultiVerbs() {
+        new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-2.yml"))).apiDefinitions();
     }
 
     @Test
-    public void nonAmbiguousUriMappingWithSubContexts()  {
-        new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-3.yml")).apiDefinitions();
+    public void nonAmbiguousUriMappingWithSubContexts() {
+        new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-3.yml"))).apiDefinitions();
     }
 }

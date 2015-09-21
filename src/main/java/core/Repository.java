@@ -19,20 +19,27 @@ import static java.util.stream.Collectors.*;
  */
 public final class Repository {
 
-    private final InputStream apiDefsYml;
+    private final List<InputStream> apiDefsYmls;
     private final List<ApiDef> apiDefinitions = new ArrayList<>();
 
-    public Repository(final InputStream apiDefsYml) {
-        this.apiDefsYml = apiDefsYml;
-        Yaml yml = new Yaml();
-        List<Map<String, String>> apiDefsAsMaps = (List) yml.load(apiDefsYml);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        apiDefinitions.addAll(apiDefsAsMaps.stream().map(def -> mapper.convertValue(def, ApiDef.class)).collect(toList()));
+    public Repository(final List<InputStream> apiDefsYmls) {
+        this.apiDefsYmls = apiDefsYmls;
 
+        List<ApiDef> parsedDefinitions = apiDefsYmls.stream()
+                .flatMap(in -> {
+                    Yaml yml = new Yaml();
+                    List<Map<String, String>> apiDefsAsMaps = (List) yml.load(in);
+                    return apiDefsAsMaps.stream();
+                })
+                .map(map -> {
+                    ObjectMapper mapper = new ObjectMapper();
+                    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                    return mapper.convertValue(map, ApiDef.class);
+                })
+                .collect(toList());
+
+        apiDefinitions.addAll(parsedDefinitions);
         validate(apiDefinitions);
-
-
     }
 
     private void validate(final List<ApiDef> apiDefinitions) {

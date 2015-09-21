@@ -81,7 +81,7 @@ public class Router {
         // Parse body.
         if (rq.body() != null) {
             routingContext.getRequestBody().put("val", rq.body());
-            if (rq.contentType().toUpperCase().contains("json".toUpperCase())) {
+            if (rq.contentType() != null && rq.contentType().toUpperCase().contains("json".toUpperCase())) {
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 try {
