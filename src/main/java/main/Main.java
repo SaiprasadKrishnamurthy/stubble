@@ -4,6 +4,7 @@ import core.HandleBarsTemplateEngine;
 import core.Repository;
 import core.Router;
 import core.RoutingContext;
+import org.apache.commons.lang3.StringUtils;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -13,6 +14,7 @@ import spark.Response;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -39,22 +41,24 @@ public class Main {
         main.doMain(args);
     }
 
+    /**
+     * <p>
+     * Runs the API stub app as defined in the api definitions file in the apiDefinitionsRootDirectory.
+     * By default, the http port is: 4567. If you need to override it, do so by using -Dport=[port]
+     * </p>
+     *
+     * @param apiDefinitionsRootDirectory Root directory where the api definitions yml files are stored.
+     * @param templatesRootDirectory      Root directory where the handlebar templates are stored.
+     */
+    public void run(final String apiDefinitionsRootDirectory, final String templatesRootDirectory) {
+        this.definitions = apiDefinitionsRootDirectory;
+        this.templatesDirectory = templatesRootDirectory;
+    }
+
     private void doMain(final String[] args) throws Exception {
         CmdLineParser parser = new CmdLineParser(this);
         try {
             parser.parseArgument(args);
-            List<InputStream> ymlDefinitions = Files.list(Paths.get(definitions))
-                    .filter(path -> path.toString().endsWith(".yml") || path.toString().endsWith(".yaml"))
-                    .map(path -> {
-                        try {
-                            return new FileInputStream(path.toString());
-                        } catch (FileNotFoundException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .collect(toList());
-
-            REPOSITORY = new Repository(ymlDefinitions);
             configure();
         } catch (CmdLineException e) {
             System.err.println(e.getMessage());
@@ -65,7 +69,26 @@ public class Main {
         }
     }
 
-    private void configure() {
+    private void configure() throws IOException {
+        List<InputStream> ymlDefinitions = Files.list(Paths.get(definitions))
+                .filter(path -> path.toString().endsWith(".yml") || path.toString().endsWith(".yaml"))
+                .map(path -> {
+                    try {
+                        return new FileInputStream(path.toString());
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(toList());
+
+        REPOSITORY = new Repository(ymlDefinitions);
+        configureRoutes();
+    }
+
+    private void configureRoutes() {
+        if (StringUtils.isNumeric(System.getProperty("port"))) {
+            port(Integer.parseInt(System.getProperty("port").trim()));
+        }
         get("/*", this::getModelAndView, new HandleBarsTemplateEngine(templatesDirectory));
         put("/*", this::getModelAndView, new HandleBarsTemplateEngine(templatesDirectory));
         post("/*", this::getModelAndView, new HandleBarsTemplateEngine(templatesDirectory));
