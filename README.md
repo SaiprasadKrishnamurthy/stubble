@@ -66,7 +66,7 @@ GET /saikris/112233/billingstatusss | ERROR | NA |
 
 #### Response Templates
 
-** Handlebar Templates are chosen to be the response templating language because of their simplicity **
+**Handlebar Templates are chosen to be the response templating language because of their simplicity**
 
 The template file is specified in the api definition (per api).
 
