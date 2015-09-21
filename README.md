@@ -109,7 +109,7 @@ java -jar stubble-jar-with-dependencies.jar --templatesdir=<root_dir_of_handleba
 * Add the maven dependency.
 * You could fork the below lines of code in a separate thread.
 ```
-main.Main stubbleMain = new main.Main();
+stubble.Main stubbleMain = new stubble.Main();
 stubbleMain.run("<apiDefinitionsRootDirectory>", "<templatesRootDirectory>")
 ```
 #### Best Practices
