@@ -1,19 +1,19 @@
-- api:                  Register a customer
+- api:                  Get customer billing status
   httpverb:             get
-  uri:                  /:customer/:phone/registration
+  uri:                  /:customer/:phone/billingstatus
   responseStatus:       201
-  responseCookies:      cookie1=cookievalue1,cookie2=cookievalue2,apiToken=XXAASSWWEERR
+  responseCookies:      cookie1=cookievalue1,cookie2=cookievalue2
   responseHeaders:      header2=headervalue2,header3=headervalue3
-  responseTemplateFile: register_a_customer.hbs
+  responseTemplateFile: customer_billing_status.hbs
   responseContentType:  application/json
 
 - api:                  Update customer details
   httpverb:             put
-  uri:                  /:customer/:phone/registration
+  uri:                  /customer/:customerId/
   responseStatus:       200
   responseCookies:      cookie1=cookievalue1,cookie2=cookievalue2,apiToken=XXAASSWWEERR
   responseHeaders:      header2=headervalue2,header3=headervalue3
-  responseTemplateFile: create_index.hbs
+  responseTemplateFile: update_customer.hbs
   responseContentType:  application/json
 
 
