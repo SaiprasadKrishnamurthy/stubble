@@ -1,4 +1,4 @@
-package core;
+package stubble.core;
 
 import java.util.HashMap;
 import java.util.Map;

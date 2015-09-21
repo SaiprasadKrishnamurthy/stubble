@@ -1,10 +1,10 @@
-package core;
+package stubble.core;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.ApiDef;
 import spark.Request;
+import stubble.model.ApiDefinition;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,14 +19,14 @@ import static java.util.stream.Collectors.toList;
  * Created by sai on 18/09/2015.
  */
 public class Router {
-    public static RoutingContext context(final Request rq, final List<ApiDef> availableDefinitions) {
+    public static RoutingContext context(final Request rq, final List<ApiDefinition> availableDefinitions) {
         RoutingContext routingContext = new RoutingContext();
 
         String uri = rq.uri();
         String reqMethod = rq.requestMethod();
 
 
-        ApiDef apiDef = matchingPathTokens(availableDefinitions, uri, reqMethod, rq.queryString())
+        ApiDefinition apiDef = matchingPathTokens(availableDefinitions, uri, reqMethod, rq.queryString())
                 .orElseThrow(() -> new RuntimeException("No matching api definitions found to route this request"));
 
         // Map the path variables now.
@@ -98,7 +98,7 @@ public class Router {
         return routingContext;
     }
 
-    private static Optional<ApiDef> matchingPathTokens(final List<ApiDef> apiDefinitions, final String uri, final String verb, final String queryString) {
+    private static Optional<ApiDefinition> matchingPathTokens(final List<ApiDefinition> apiDefinitions, final String uri, final String verb, final String queryString) {
         List<String> uriElements = Stream.of(uri.split("/", -1)).collect(toList());
         return apiDefinitions
                 .stream()

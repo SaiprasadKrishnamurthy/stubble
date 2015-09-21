@@ -1,9 +1,9 @@
-package model;
+package stubble.model;
 
 /**
  * Created by sai on 18/09/2015.
  */
-public class ApiDef {
+public class ApiDefinition {
 
     private String api;
     private String httpverb;

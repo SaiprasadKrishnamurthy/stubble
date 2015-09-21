@@ -1,9 +1,9 @@
-package core;
+package stubble.core;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.ApiDef;
 import org.yaml.snakeyaml.Yaml;
+import stubble.model.ApiDefinition;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,12 +20,12 @@ import static java.util.stream.Collectors.*;
 public final class Repository {
 
     private final List<InputStream> apiDefsYmls;
-    private final List<ApiDef> apiDefinitions = new ArrayList<>();
+    private final List<ApiDefinition> apiDefinitions = new ArrayList<>();
 
     public Repository(final List<InputStream> apiDefsYmls) {
         this.apiDefsYmls = apiDefsYmls;
 
-        List<ApiDef> parsedDefinitions = apiDefsYmls.stream()
+        List<ApiDefinition> parsedDefinitions = apiDefsYmls.stream()
                 .flatMap(in -> {
                     Yaml yml = new Yaml();
                     List<Map<String, String>> apiDefsAsMaps = (List) yml.load(in);
@@ -34,7 +34,7 @@ public final class Repository {
                 .map(map -> {
                     ObjectMapper mapper = new ObjectMapper();
                     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                    return mapper.convertValue(map, ApiDef.class);
+                    return mapper.convertValue(map, ApiDefinition.class);
                 })
                 .collect(toList());
 
@@ -42,7 +42,7 @@ public final class Repository {
         validate(apiDefinitions);
     }
 
-    private void validate(final List<ApiDef> apiDefinitions) {
+    private void validate(final List<ApiDefinition> apiDefinitions) {
         Optional<Map.Entry<String, Long>> invaidPathDefinition = apiDefinitions.stream()
                 .map(apiDef -> apiDef.getUri().contains("?") ? apiDef.getHttpverb() + ":" + apiDef.getUri().substring(0, apiDef.getUri().indexOf("?")) : apiDef.getHttpverb() + ":" + apiDef.getUri())
                 .map(uri -> Stream.of(uri.split("/", -1)).filter(pathToken -> !pathToken.startsWith(":")).collect(joining("|")))
@@ -59,7 +59,7 @@ public final class Repository {
         }
     }
 
-    public List<ApiDef> apiDefinitions() {
+    public List<ApiDefinition> apiDefinitions() {
         return apiDefinitions;
     }
 }

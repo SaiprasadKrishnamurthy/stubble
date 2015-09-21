@@ -1,10 +1,10 @@
-package core;
+package stubble.core;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import model.ApiDef;
 import org.junit.Test;
 import spark.Request;
+import stubble.model.ApiDefinition;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +23,7 @@ public class RouteResolverTest {
     @Test
     public void shouldFindRouteConfigWithPathVariablesOnly() throws Exception {
 
-        final List<ApiDef> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
+        final List<ApiDefinition> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
 
 
         // Test request
@@ -85,7 +85,7 @@ public class RouteResolverTest {
     @Test
     public void shouldFindRouteConfigWithPathVariablesAndQueryString() throws Exception {
 
-        final List<ApiDef> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
+        final List<ApiDefinition> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
 
         // Test request
         Request rq = new Request() {
@@ -147,7 +147,7 @@ public class RouteResolverTest {
     @Test
     public void shouldFindRouteConfigWithPathVariablesPUT() throws Exception {
 
-        final List<ApiDef> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
+        final List<ApiDefinition> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
 
         // Test request
         Request rq = new Request() {

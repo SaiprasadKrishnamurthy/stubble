@@ -1,4 +1,4 @@
-package core;
+package stubble.core;
 
 /*
  * Copyright 2014
@@ -20,7 +20,6 @@ package core;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.cache.GuavaTemplateCache;
-import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 import com.github.jknack.handlebars.io.TemplateLoader;
 import com.github.jknack.handlebars.io.TemplateSource;
 import com.google.common.cache.Cache;

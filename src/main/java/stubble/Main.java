@@ -1,9 +1,9 @@
-package main;
+package stubble;
 
-import core.HandleBarsTemplateEngine;
-import core.Repository;
-import core.Router;
-import core.RoutingContext;
+import stubble.core.HandleBarsTemplateEngine;
+import stubble.core.Repository;
+import stubble.core.Router;
+import stubble.core.RoutingContext;
 import org.apache.commons.lang3.StringUtils;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
