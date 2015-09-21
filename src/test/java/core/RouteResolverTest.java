@@ -103,20 +103,31 @@ public class RouteResolverTest {
             public String queryString() {
                 return "detailed=yes";
             }
+
+            @Override
+            public String contentType() {
+                return "application/json";
+            }
+
+            @Override
+            public String body() {
+                return "{\"city\": \"chennai\"}";
+            }
         };
 
         RoutingContext routingContext = Router.context(rq, availableDefinitions);
 
         assertNotNull(routingContext);
-        assertThat(routingContext.getUri(), equalTo(ImmutableMap.of("customer", "sai", "phone", "11223344")));
+        assertThat(routingContext.getUri(), equalTo(ImmutableMap.of("customer", "sai", "phone", "11223344", "detailedFlag", "yes")));
         assertThat(routingContext.getRequestHeaders(), equalTo(ImmutableMap.of("header1", "headerValue1")));
         assertThat(routingContext.getRequestCookies(), equalTo(ImmutableMap.of("cookie1", "cookieValue1")));
         assertThat(routingContext.getRoutingTemplateName(), equalTo("registrationFile.hb"));
         assertThat(routingContext.getResponseStatus(), equalTo(200));
         assertThat(routingContext.getResponseCookies(), equalTo(ImmutableMap.of("cookie1", "cookievalue1", "cookie2", "cookievalue2")));
         assertThat(routingContext.getResponseHeaders(), equalTo(ImmutableMap.of("header2", "headervalue2", "header3", "headervalue3")));
-        assertThat(routingContext.getRequestParams(), equalTo(ImmutableMap.of("detailedFlag", "yes")));
         assertThat(routingContext.getResponseContentType(), equalTo("application/json"));
+        assertThat(routingContext.getRequestBody().get("city"), equalTo("chennai"));
+        assertThat(routingContext.getRequestBody().get("val"), equalTo(rq.body()));
     }
 
     @Test
@@ -137,6 +148,7 @@ public class RouteResolverTest {
             public String queryString() {
                 return null;
             }
+
             @Override
             public Set<String> headers() {
                 return ImmutableSet.of("header1");
@@ -152,6 +164,15 @@ public class RouteResolverTest {
                 return ImmutableMap.of("cookie1", "cookieValue1");
             }
 
+            @Override
+            public String contentType() {
+                return "application/json";
+            }
+
+            @Override
+            public String body() {
+                return "{\"city\": \"chennai\"}";
+            }
         };
 
         RoutingContext routingContext = Router.context(rq, availableDefinitions);
@@ -159,5 +180,7 @@ public class RouteResolverTest {
         assertNotNull(routingContext);
         assertThat(routingContext.getUri(), equalTo(ImmutableMap.of("customer", "sai", "phone", "1234")));
         assertThat(routingContext.getResponseStatus(), equalTo(201));
+        assertThat(routingContext.getRequestBody().get("city"), equalTo("chennai"));
+        assertThat(routingContext.getRequestBody().get("val"), equalTo(rq.body()));
     }
 }

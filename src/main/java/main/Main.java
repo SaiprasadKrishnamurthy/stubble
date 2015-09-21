@@ -13,16 +13,16 @@ import static spark.Spark.*;
 /**
  * Created by sai on 03/08/2015.
  */
-public class RecipeResource {
+public class Main {
 
-    private static final Repository REPOSITORY = new Repository(RecipeResource.class.getClassLoader().getResourceAsStream("api-defs.yml"));
+    private static final Repository REPOSITORY = new Repository(Main.class.getClassLoader().getResourceAsStream("api-defs.yml"));
 
     public static void main(String[] args) throws Exception {
-        get("/*", RecipeResource::getModelAndView, new HandlebarsTemplateEngine());
-        put("/*", RecipeResource::getModelAndView, new HandlebarsTemplateEngine());
-        post("/*", RecipeResource::getModelAndView, new HandlebarsTemplateEngine());
-        delete("/*", RecipeResource::getModelAndView, new HandlebarsTemplateEngine());
-        head("/*", RecipeResource::getModelAndView, new HandlebarsTemplateEngine());
+        get("/*", Main::getModelAndView, new HandlebarsTemplateEngine());
+        put("/*", Main::getModelAndView, new HandlebarsTemplateEngine());
+        post("/*", Main::getModelAndView, new HandlebarsTemplateEngine());
+        delete("/*", Main::getModelAndView, new HandlebarsTemplateEngine());
+        head("/*", Main::getModelAndView, new HandlebarsTemplateEngine());
     }
 
     private static ModelAndView getModelAndView(final Request req, final Response res) {
@@ -39,5 +39,4 @@ public class RecipeResource {
         res.type(routingContext.getResponseContentType());
         return routingContext;
     }
-
 }

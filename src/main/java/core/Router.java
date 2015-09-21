@@ -1,8 +1,13 @@
 package core;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.ApiDef;
 import spark.Request;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -65,12 +70,29 @@ public class Router {
                     IntStream.range(0, kvApi.length)
                             .forEach(i -> {
                                 if (kvApi[i].contains(":")) {
-                                    routingContext.getRequestParams().put(kvApi[i].replace(":","").trim(), kvRq[i].trim());
+                                    routingContext.getUri().put(kvApi[i].replace(":", "").trim(), kvRq[i].trim());
                                 }
                             });
 
                 }
             });
+        }
+
+        // Parse body.
+        if (rq.body() != null) {
+            routingContext.getRequestBody().put("val", rq.body());
+            if (rq.contentType().toUpperCase().contains("json".toUpperCase())) {
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                try {
+                    routingContext.getRequestBody().putAll(mapper.readValue(rq.body(),
+                            new TypeReference<HashMap<String, String>>() {
+                            }));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
         return routingContext;

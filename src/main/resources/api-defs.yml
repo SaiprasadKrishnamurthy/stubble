@@ -1,8 +1,23 @@
-- api:                  Registering a customer
+- api:                  Register a customer
   httpverb:             get
   uri:                  /:customer/:phone/registration
   responseStatus:       201
   responseCookies:      cookie1=cookievalue1,cookie2=cookievalue2
   responseHeaders:      header2=headervalue2,header3=headervalue3
-  responseTemplateFile: customer.hbs
+  responseTemplateFile: register_a_customer.hbs
+  responseContentType:  application/json
+
+- api:                  Search over index
+  httpverb:             get
+  uri:                  /:index/_search?full=:fullFlag
+  responseStatus:       200
+  responseTemplateFile: search_over_index.hbs
+  responseContentType:  application/json
+
+
+- api:                  Registering a customer
+  httpverb:             put
+  uri:                  /:index/
+  responseStatus:       200
+  responseTemplateFile: create_index.hbs
   responseContentType:  application/json

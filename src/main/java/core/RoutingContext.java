@@ -13,10 +13,10 @@ public class RoutingContext {
     private Map<String, String> requestCookies = new HashMap<>();
     private Map<String, String> responseCookies = new HashMap<>();
     private Map<String, String> responseHeaders = new HashMap<>();
+    private Map<String, String> requestBody = new HashMap<>();
     private int responseStatus = 201;
     private String routingTemplateName;
     private String responseContentType = "application/json";
-
 
 
     public Map<String, String> getRequestParams() {
@@ -89,5 +89,13 @@ public class RoutingContext {
 
     public void setResponseContentType(String responseContentType) {
         this.responseContentType = responseContentType;
+    }
+
+    public Map<String, String> getRequestBody() {
+        return requestBody;
+    }
+
+    public void setRequestBody(Map<String, String> requestBody) {
+        this.requestBody = requestBody;
     }
 }

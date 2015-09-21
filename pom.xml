@@ -74,7 +74,7 @@
       <artifactId>exec-maven-plugin</artifactId>
       <version>1.2.1</version>
       <configuration>
-        <mainClass>main.RecipeResource</mainClass>
+        <mainClass>main.Main</mainClass>
         <arguments>
         </arguments>
       </configuration>
@@ -84,11 +84,11 @@
         <artifactId>maven-jar-plugin</artifactId>
         <version>2.4</version>
         <configuration>
-          <finalName>spark-recipe</finalName>
+          <finalName>stubble</finalName>
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>main.RecipeResource</mainClass>
+              <mainClass>main.Main</mainClass>
               <classpathPrefix>dependency-jars/</classpathPrefix>
             </manifest>
           </archive>
@@ -113,13 +113,13 @@
             </goals>
             <phase>package</phase>
             <configuration>
-              <finalName>spark-recipe</finalName>
+              <finalName>stubble</finalName>
               <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
               </descriptorRefs>
               <archive>
                 <manifest>
-                  <mainClass>main.RecipeResource</mainClass>
+                  <mainClass>main.Main</mainClass>
                 </manifest>
               </archive>
             </configuration>
@@ -128,4 +128,36 @@
       </plugin>
         </plugins>
     </build>
+    <profiles>
+      <profile>
+            <id>build-docker-container</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                      <finalName>stubble</finalName>
+
+                <plugins>
+                    <plugin>
+                      <groupId>com.spotify</groupId>
+                      <artifactId>docker-maven-plugin</artifactId>
+                      <version>0.3.1</version>
+                      <executions>
+                      <execution>
+                        <id>dockerize</id>
+                        <phase>package</phase>
+                        <goals>
+                          <goal>build</goal>
+                        </goals>
+                      </execution>
+                    </executions>
+                      <configuration>
+                        <imageName>stubble</imageName>
+                        <dockerDirectory>.</dockerDirectory>
+                      </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
