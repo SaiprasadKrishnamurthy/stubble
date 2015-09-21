@@ -25,7 +25,6 @@ public class RouteResolverTest {
 
         final List<ApiDefinition> availableDefinitions = new Repository(Arrays.asList(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml"))).apiDefinitions();
 
-
         // Test request
         Request rq = new Request() {
             public String uri() {
