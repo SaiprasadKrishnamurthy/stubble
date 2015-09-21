@@ -19,10 +19,11 @@ import static org.junit.Assert.assertThat;
  */
 public class RouteResolverTest {
 
-    private final List<ApiDef> availableDefinitions = new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml")).apiDefinitions();
-
     @Test
     public void shouldFindRouteConfigWithPathVariablesOnly() throws Exception {
+
+        final List<ApiDef> availableDefinitions = new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml")).apiDefinitions();
+
 
         // Test request
         Request rq = new Request() {
@@ -54,6 +55,16 @@ public class RouteResolverTest {
             public String queryString() {
                 return null;
             }
+
+            @Override
+            public String body() {
+                return "{\"city\": \"chennai\"}";
+            }
+
+            @Override
+            public String contentType() {
+                return "application/json";
+            }
         };
 
         RoutingContext routingContext = Router.context(rq, availableDefinitions);
@@ -72,6 +83,8 @@ public class RouteResolverTest {
 
     @Test
     public void shouldFindRouteConfigWithPathVariablesAndQueryString() throws Exception {
+
+        final List<ApiDef> availableDefinitions = new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml")).apiDefinitions();
 
         // Test request
         Request rq = new Request() {
@@ -133,6 +146,8 @@ public class RouteResolverTest {
     @Test
     public void shouldFindRouteConfigWithPathVariablesPUT() throws Exception {
 
+        final List<ApiDef> availableDefinitions = new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("test-api-defs.yml")).apiDefinitions();
+
         // Test request
         Request rq = new Request() {
             public String uri() {
@@ -182,5 +197,20 @@ public class RouteResolverTest {
         assertThat(routingContext.getResponseStatus(), equalTo(201));
         assertThat(routingContext.getRequestBody().get("city"), equalTo("chennai"));
         assertThat(routingContext.getRequestBody().get("val"), equalTo(rq.body()));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void ambiguousUriMapping()  {
+        new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-1.yml")).apiDefinitions();
+    }
+
+    @Test
+    public void nonAmbiguousUriMappingWithMultiVerbs()  {
+        new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-2.yml")).apiDefinitions();
+    }
+
+    @Test
+    public void nonAmbiguousUriMappingWithSubContexts()  {
+        new Repository(RouteResolverTest.class.getClassLoader().getResourceAsStream("validation-error-api-defs-3.yml")).apiDefinitions();
     }
 }

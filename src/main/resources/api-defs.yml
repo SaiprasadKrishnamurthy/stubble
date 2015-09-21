@@ -9,15 +9,22 @@
 
 - api:                  Search over index
   httpverb:             get
-  uri:                  /:index/_search?full=:fullFlag
+  uri:                  /:index/_search?full=:fullFlag&partial=:partialFlag
+  responseStatus:       200
+  responseTemplateFile: search_over_index.hbs
+  responseContentType:  application/json
+
+- api:                  Search over index
+  httpverb:             get
+  uri:                  /:sddd/_search?partial=:partialFlag
   responseStatus:       200
   responseTemplateFile: search_over_index.hbs
   responseContentType:  application/json
 
 
-- api:                  Registering a customer
+- api:                  Indexing the cities
   httpverb:             put
-  uri:                  /:index/
+  uri:                  /:index/cities
   responseStatus:       200
   responseTemplateFile: create_index.hbs
   responseContentType:  application/json

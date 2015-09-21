@@ -1,0 +1,22 @@
+- api:                  Registering a customer
+  httpverb:             get
+  uri:                  /:customer/phone/registration/:partial
+  responseStatus:       200
+  responseCookies:      cookie1=cookievalue1,cookie2=cookievalue2
+  responseHeaders:      header2=headervalue2,header3=headervalue3
+  responseTemplateFile: registrationFile.hb
+  responseContentType:  application/json
+
+- api:                  Getting the billing details
+  httpverb:             get
+  uri:                  /:customer/phone/registration/:partial/force
+  responseStatus:       200
+  responseCookies:      cookie1=cookievalue1,cookie2=cookievalue2
+  responseHeaders:      header2=headervalue2,header3=headervalue3
+  responseTemplateFile: registrationFile.hb
+
+- api:                  Update user address
+  httpverb:             put
+  uri:                  /:customer/:phone/address
+  responseStatus:       201
+
